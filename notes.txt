@@ -1,0 +1,17 @@
+* Features (name that anime character)
+	* Picks a name randomly from a predefined list of strings stored in an array
+	* Ask for input from user and append the input to a array of previously tried values:
+		* If the character is in the string: do nothing
+		* Else
+			* Check if the character is in the string using "in"
+				* if it does increment subscore
+					* if subscore reaches len(name) you win.
+				* Otherwise, decrement the number of guesses left
+					*if guessesLeft reaches 0 you lose.
+
+
+
+				
+
+
+	

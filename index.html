@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang = 'en-us'>
+
+<head>
+    <title>Word Guess Game</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+
+<body>
+
+<p>Name that anime character!</p>
+
+<input type="text" onkeypress="game.guess(event)">
+
+<img src="#" id='AnimePic' alt = 'Anime Picture'>
+<p id='Guesses'>Your guesses:</p>
+<p id='Score'></p>
+<p id ='Tries'>Tries Left: 10</p>
+<p id ='Win' hidden>You win!</p>
+<p id = 'Lose' hidden>You lose!</p>
+<button onclick="game.start()" id = 'StartButton' hidden>Play Again!</button>
+<script src="assets/javascript/game.js"></script>
+
+</body>
+
