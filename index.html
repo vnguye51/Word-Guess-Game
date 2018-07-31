@@ -4,24 +4,26 @@
 <head>
     <title>Word Guess Game</title>
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 
 <body>
 
-<p>Name that anime character!</p>
+<h1>Name that anime character!</h1>
 
 <!-- <input type="text" onkeypress="game.guess(event)"> -->
+<img src="#" id='AnimePic' alt = 'Anime Picture' hidden>
 
-<img src="#" id='AnimePic' alt = 'Anime Picture'>
-<p id='Guesses'>Your guesses:</p>
-<p id='Score'></p>
-<p id ='Tries'>Tries Left: 10</p>
+<p id='Guesses' hidden>Your guesses:</p>
+<p id='Score' hidden></p>
+<p id ='Tries' hidden>Tries Left: 10</p>
 <p id ='Win' hidden>You win!</p>
 <p id = 'Lose' hidden>You lose!</p>
-<button onclick="game.start()" id = 'StartButton' hidden>Play Again!</button>
+<button onclick="game.playAgain()" id = 'AgainButton' hidden >Play Again!</button>
+<button onclick ='game.start()' id = 'StartButton'>START</button>
 <script src="assets/javascript/game.js"></script>
 
 </body>
