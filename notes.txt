@@ -10,8 +10,10 @@
 					*if guessesLeft reaches 0 you lose.
 
 
-
-				
+* THINGS TO IMPROVE
+	* play that character's theme
+	* Difficulties(aim for 15 in each easy,medium,hard)
+	* Code cleanup/compression
 
 
 	
