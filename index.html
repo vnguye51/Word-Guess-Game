@@ -2,6 +2,7 @@
 <html lang = 'en-us'>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Guess Game</title>
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -31,9 +32,9 @@
 <p id ='Win' hidden>You win!</p>
 <p id = 'Lose' hidden>You lose!</p>
 <div id = 'DifficultyContainer'>
-    <button class = 'Difficulty' id = 'EasyButton'>EASY(CLASSICS)</button>
-    <button onclick ='game.start()' class = 'Difficulty' id = 'MediumButton'>MEDIUM</button>
-    <button onclick ='game.start()' class = 'Difficulty' id = 'HardButton'>HARD(OBSCURE)</button>
+    <button class = 'Difficulty' id = 'EasyButton'>EASY</button>
+    <button class = 'Difficulty' id = 'MediumButton'>MEDIUM</button>
+    <button class = 'Difficulty' id = 'HardButton'>HARD</button>
 </div>
 
 <button onclick="game.playAgain()" id = 'AgainButton' hidden >Play Again!</button>
