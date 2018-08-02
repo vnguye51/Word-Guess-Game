@@ -1,8 +1,16 @@
 
 var game = 
 {   //Maybe retrieve names and images from databases later on
-    nameList: ['Rurouni Kenshin','Gary Oak','Joey Wheeler','Alphonse Elric', 'Chihiro','Genkai','Hamtaro','Ichigo Kurosaki','Inuyasha','Killua','Kirito','Krillin','Luffy','Renji','Sasuke Uchiha','Taiga Aisaka','Tohru Honda','Vash the Stampede','Yusuke Urameshi'],
-    imageList: ['Kenshin.png','Gary.jpg','Joey.jpg', 'Alphonse.jpg','Chihiro.jpg','Genkai.jpg','Hamtaro.png','Ichigo.png','Inuyasha.jpg','Killua.png','Kirito.png','Krillin.png','Luffy.png','Renji.png','Sasuke.jpg','Taiga.jpg','Tohru.jpg','Vash.jpg','Yusuke.png'],
+    difficulty: null,
+    completed: [0,0,0],
+    nameList: null,
+    imageList: null,
+    easyList:  ['Kurama','Rurouni Kenshin','Gary Oak','Joey Wheeler', 'Chihiro','Genkai','Ichigo Kurosaki','Inuyasha','Kirito','Krillin','Luffy','Sasuke Uchiha','Tohru Honda','Vash the Stampede','Yusuke Urameshi'],
+    easyImageList:  ['Kurama.png','Kenshin.png','Gary.jpg','Joey.jpg', 'Chihiro.jpg','Genkai.jpg','Ichigo.png','Inuyasha.jpg','Kirito.png','Krillin.png','Luffy.png','Sasuke.jpg','Tohru.jpg','Vash.jpg','Yusuke.png'],
+    mediumList: ['Alphonse Elric','Hamtaro','Renji','Killua','Taiga Aisaka',],
+    mediumImageList: ['Alphonse.jpg','Hamtaro.png','Renji.png','Killua.png','Taiga.jpg',],
+    hardList: [],
+    hardImageList: [],
     index: 0,
     name: '',
     nameSoFar: [],
@@ -15,8 +23,31 @@ var game =
     gameIntermission: false,
 
 
-    start: function()
-    {
+    start: function(difficulty)
+    {   
+        
+        //Choose difficulty
+        if (difficulty == 'hard')
+        {
+            this.difficulty = difficulty
+            this.nameList = this.hardList
+            this.imageList = this.hardImageList
+        }
+        else if (difficulty == 'medium')
+        {
+            this.difficulty = difficulty
+            this.nameList = this.mediumList
+            this.imageList = this.mediumImageList
+        }
+        else
+        {
+            this.difficulty = difficulty
+            this.nameList = this.easyList
+            this.imageList = this.easyImageList
+        }
+
+
+
         document.getElementById('Guesses').removeAttribute("hidden")
         document.getElementById('SubScore').removeAttribute("hidden")
         document.getElementById('Tries').removeAttribute("hidden")
@@ -27,13 +58,12 @@ var game =
         document.getElementById("EasyButton").setAttribute("hidden",true)
         document.getElementById("MediumButton").setAttribute("hidden",true)
         document.getElementById("HardButton").setAttribute("hidden",true)
-
         this.playAgain()
     },
 
     playAgain: function() 
     {
-        //Reinitialize values
+         //Reinitialize values
         this.possibleScore += 1
         this.gameIntermission = false
         this.previousGuesses = []
@@ -44,6 +74,8 @@ var game =
         this.name = (this.nameList[this.index]).toLowerCase();
 
         document.getElementById('AnimePic').src = 'assets/images/' + this.imageList[this.index]
+        console.log(typeof(this.nameList))
+        console.log(this.nameList)
         document.getElementById("Characters").textContent = 'Characters Left: ' + this.nameList.length
 
         this.targetscore = this.name.length
@@ -117,10 +149,32 @@ var game =
                 if (this.subScore === this.targetscore)
                 {
                     this.score += 1
+
+                    if (this.nameList.length === 0)
+                    {
+                    this.completed.push(this.difficulty)
+                    }
+
+                    if (!this.completed.includes('easy'))
+                    {
+                        document.getElementById("MediumButton").removeAttribute("hidden")
+                    }
+                    if (!this.completed.includes('medium'))
+                    {
+                        document.getElementById("MediumButton").removeAttribute("hidden")
+                    }
+                    if (!this.completed.includes('hard'))
+                    {
+                        document.getElementById("HardButton").removeAttribute("hidden")
+                    }
+
                     document.getElementById("Win").removeAttribute("hidden");
                     document.getElementById("AgainButton").removeAttribute("hidden")
                     document.getElementById("Score").textContent = 'Score: ' + this.score + '|' + this.possibleScore
+
                     game.gameIntermission = true
+                    
+                    
 
                 }
             }
@@ -134,11 +188,25 @@ var game =
                 //If you run out of guesses you lose!
                 if (this.guessesLeft === 0)
                 {
+                    if (!this.completed.includes('easy'))
+                    {
+                        document.getElementById("MediumButton").removeAttribute("hidden")
+                    }
+                    if (!this.completed.includes('medium'))
+                    {
+                        document.getElementById("MediumButton").removeAttribute("hidden")
+                    }
+                    if (!this.completed.includes('hard'))
+                    {
+                        document.getElementById("HardButton").removeAttribute("hidden")
+                    }
+
                     document.getElementById("Lose").removeAttribute("hidden");
                     document.getElementById("AgainButton").removeAttribute("hidden")
                     document.getElementById("Score").textContent = 'Score: ' + this.score + '|' + this.possibleScore
                     game.gameIntermission = true
-
+                    
+                    
                 }
             }
         }
@@ -157,4 +225,16 @@ document.onkeypress = function(event) {
         }
     }   
 
+}
+
+document.getElementById('EasyButton').onclick = function() {
+    console.log('asdf')
+    game.start('easy')
+}
+
+var a = 'whatever'
+
+function myFunction()
+{
+    a = 5
 }
