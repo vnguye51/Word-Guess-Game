@@ -5,12 +5,12 @@ var game =
     completed: [],
     nameList: null,
     imageList: null,
-    easyList:  ['Kurama','Rurouni Kenshin','Gary Oak','Joey Wheeler', 'Chihiro','Genkai','Ichigo Kurosaki','Inuyasha','Krillin','Monkey D Luffy','Sasuke Uchiha','Tohru Honda','Vash the Stampede','Yusuke Urameshi'],
-    easyImageList:  ['Kurama.png','Kenshin.png','Gary.jpg','Joey.jpg', 'Chihiro.jpg','Genkai.jpg','Ichigo.png','Inuyasha.jpg','Krillin.png','Luffy.png','Sasuke.jpg','Tohru.jpg','Vash.jpg','Yusuke.png'],
-    mediumList: ['Alphonse Elric','Hamtaro','Renji','Killua','Taiga Aisaka', "L Lawliet",'Kirito', 'Death the Kid','Satou Kazuma','Zatch Bell'],
-    mediumImageList: ['Alphonse.jpg','Hamtaro.png','Renji.png','Killua.png','Taiga.jpg','L.jpg','Kirito.png','Death.jpg','Kazuma.jpg','Zatch.jpg'],
-    hardList: ['Megumi Shimizu','Tanya von Degurechaff','Vanilla Ice', 'Inaho Kaizuka', 'Ozen the Immovable', 'Ayumu Aikawa','Megumi Noda','Himari Takakura','Adlet Mayer'],
-    hardImageList: ['Megumi.jpg','Tanya.jpg','Vanilla.png','Inaho.jpg','Ozen.png','Ayumu.png','Nodame.jpg','Himari.png', 'Adlet.png'],
+    easyList:  ['Kenshin Himura', 'Chihiro Ogino','Tohru Honda','Vash the Stampede','Yusuke Urameshi'],
+    easyImageList:  ['Kenshin.png', 'Chihiro.jpg','Tohru.jpg','Vash.jpg','Yusuke.png'],
+    mediumList: ['Hamtaro','Taiga Aisaka', "L Lawliet", 'Satou Kazuma','Zatch Bell'],
+    mediumImageList: ['Hamtaro.png','Taiga.jpg','L.jpg','Kazuma.jpg','Zatch.jpg'],
+    hardList: ['Megumi Shimizu','Vanilla Ice',  'Ozen the Immovable', 'Ayumu Aikawa','Himari Takakura'],
+    hardImageList: ['Megumi.jpg','Vanilla.png','Ozen.png','Ayumu.png','Himari.png'],
     index: 0,
     name: '',
     nameSoFar: [],
@@ -25,28 +25,30 @@ var game =
 
     start: function(difficulty)
     {   
-        
+        this.score = 0
+        this.possibleScore = 0
         //Choose difficulty
         if (difficulty == 'hard')
         {
             this.difficulty = difficulty
-            this.nameList = this.hardList
-            this.imageList = this.hardImageList
+            this.nameList = this.hardList.slice()
+            this.imageList = this.hardImageList.slice()
         }
         else if (difficulty == 'medium')
         {
             this.difficulty = difficulty
-            this.nameList = this.mediumList
-            this.imageList = this.mediumImageList
+            this.nameList = this.mediumList.slice()
+            this.imageList = this.mediumImageList.slice()
         }
         else
         {
             this.difficulty = difficulty
-            this.nameList = this.easyList
-            this.imageList = this.easyImageList
+            this.nameList = this.easyList.slice()
+            this.imageList = this.easyImageList.slice()
         }
 
         //Initialize HTML to show selected boxes
+        document.getElementById("Score").textContent = 'Score: ' + this.score + '|' + this.possibleScore
         document.getElementById('Guesses').removeAttribute("hidden")
         document.getElementById('SubScore').removeAttribute("hidden")
         document.getElementById('Tries').removeAttribute("hidden")
@@ -69,10 +71,9 @@ var game =
         this.subScore = 0;
         this.guessesLeft = 10;
         this.index = (Math.floor(Math.random()*(this.nameList.length)));
-        this.name = (this.nameList[this.index]).toLowerCase();
+        this.name = (this.nameList[this.index]);
 
         document.getElementById('AnimePic').src = 'assets/images/' + this.imageList[this.index]
-        document.getElementById("Characters").textContent = 'Characters Left: ' + this.nameList.length
 
         //Loop through the name. Populate the nameSoFar(the correct letters so far) and also remove whitespace from counting towards the target score.
         this.targetscore = this.name.length
@@ -90,6 +91,7 @@ var game =
         this.nameList.splice(this.index,1)
         this.imageList.splice(this.index,1)   
 
+        document.getElementById("Characters").textContent = 'Characters Left: ' + this.nameList.length
         document.getElementById("Win").setAttribute("hidden",true)
         document.getElementById("Lose").setAttribute("hidden",true);
         document.getElementById("Guesses").innerHTML = "Your guesses: " + this.previousGuesses.join('')
@@ -106,7 +108,7 @@ var game =
         c = c.toLowerCase()
         for (var i = 0; i < this.name.length; i++)
         {  
-            if (this.name[i] === c)
+            if (this.name[i].toLowerCase() === c)
             {
                 count += 1;
                 if ((i == 0) || ( this.name[i-1] == ' ')) //If the character is the first one or is after a space capitalize it
@@ -145,35 +147,25 @@ var game =
                 //If all characters have been matched: You win!
                 if (this.subScore === this.targetscore)
                 {
-                    
                     this.score += 1
 
-                    if (this.nameList.length === 0)
+                    if (this.nameList.length === 0) //If the array is empty offer to start a new difficulty
                     {
-                    this.completed.push(this.difficulty)
+                        if (this.score === this.possibleScore)
+                        {
+                            this.completed.push(this.difficulty)
+                        }
+                        this.remainingDiff()
                     }
-                    console.log(this.completed)
-                    if (! (this.completed.includes('easy')))
+                    else
                     {
-                        document.getElementById("EasyButton").removeAttribute("hidden")
+                        document.getElementById("AgainButton").removeAttribute("hidden")
                     }
-                    if (! (this.completed.includes('medium')))
-                    {
-                        document.getElementById("MediumButton").removeAttribute("hidden")
-                    }
-                    if (!(this.completed.includes('hard')))
-                    {
-                        document.getElementById("HardButton").removeAttribute("hidden")
-                    }
-
+                    
+                
                     document.getElementById("Win").removeAttribute("hidden");
-                    document.getElementById("AgainButton").removeAttribute("hidden")
                     document.getElementById("Score").textContent = 'Score: ' + this.score + '|' + this.possibleScore
-
-                    game.gameIntermission = true //{Pause key inputs until player clicks another button
-                    
-                    
-
+                    game.gameIntermission = true //{Pause key inputs until player clicks another button 
                 }
             }
 
@@ -186,27 +178,42 @@ var game =
                 //If you run out of guesses you lose!
                 if (this.guessesLeft === 0)
                 {
-                    if (!(this.completed.includes('easy')))
+                    if (this.nameList.length === 0)  //If the array is empty offer to start a new difficulty
                     {
-                        document.getElementById("EasyButton").removeAttribute("hidden")
+                        
+                        this.remainingDiff()
                     }
-                    if (!(this.completed.includes('medium')))
+                    else
                     {
-                        document.getElementById("MediumButton").removeAttribute("hidden")
+                        document.getElementById("AgainButton").removeAttribute("hidden")
                     }
-                    if (!(this.completed.includes('hard')))
-                    {
-                        document.getElementById("HardButton").removeAttribute("hidden")
-                    }
-
+                    document.getElementById("SubScore").textContent = this.name
                     document.getElementById("Lose").removeAttribute("hidden");
-                    document.getElementById("AgainButton").removeAttribute("hidden")
                     document.getElementById("Score").textContent = 'Score: ' + this.score + '|' + this.possibleScore
                     game.gameIntermission = true //Pause key inputs
                     
                     
                 }
             }
+        }
+    },
+    remainingDiff: function()
+    {
+        if (!(this.completed.includes('easy')))
+        {
+            document.getElementById("EasyButton").removeAttribute("hidden")
+        }
+        if (!(this.completed.includes('medium')))
+        {
+            document.getElementById("MediumButton").removeAttribute("hidden")
+        }
+        if (!(this.completed.includes('hard')))
+        {
+            document.getElementById("HardButton").removeAttribute("hidden")
+        }
+        if (this.completed.length === 3)
+        {
+            document.getElementById("Done").removeAttribute("hidden")
         }
     }
 }
@@ -216,7 +223,7 @@ var game =
 document.onkeypress = function(event) {
     if (game.gameIntermission == false)
     {
-        var c = event.key.toLowerCase()
+        var c = event.key
         if ((c.charCodeAt(0) >= 97) && (c.charCodeAt(0) <= 122)) //Only allow a-z characters
         {
             game.guess(c)

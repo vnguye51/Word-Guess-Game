@@ -14,7 +14,6 @@
 <body>
 
 
-<!-- <input type="text" onkeypress="game.guess(event)"> -->
 
 <div id='gamecontainer'>
         <h1>Name that anime character!</h1>
@@ -23,14 +22,15 @@
             <img src="#" id='AnimePic' alt = 'Anime Picture' hidden>
         </div>
 
-<p id='SubScore' hidden></p>
-<p id='Guesses' hidden>Your guesses:</p>
+<p id='SubScore' class='largeinfo' hidden></p>
+<p id='Guesses' class='largeinfo' hidden>Your guesses:</p>
 
-<p id ='Score' hidden>Score: 0 | 0</p>
-<p id ='Tries' hidden>Tries Left: 10</p>
-<p id ='Characters' hidden></p>
-<p id ='Win' hidden>You win!</p>
-<p id = 'Lose' hidden>You lose!</p>
+<p id ='Score' class='largeinfo' hidden>Score: 0 | 0</p>
+<p id ='Tries'  hidden>Tries Left: 10</p>
+<p id ='Characters'  hidden></p>
+<p id ='Win' class='largeinfo' hidden>You win!</p>
+<p id = 'Lose' class='largeinfo' hidden>You lose!</p>
+<p id = 'Done' class='largeinfo' hidden>You have completed all difficulties congratulations!</p>
 <div id = 'DifficultyContainer'>
     <button class = 'Difficulty' id = 'EasyButton'>EASY</button>
     <button class = 'Difficulty' id = 'MediumButton'>MEDIUM</button>

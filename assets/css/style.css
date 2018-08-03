@@ -24,23 +24,7 @@ h1{
     
 }
 
-#Guesses {
-    font-size: 32px;
-}
-
-#Score {
-    font-size: 32px;
-}
-
-#SubScore{
-    font-size: 32px;
-}
-
-#Win {
-    font-size: 32px;
-}
-
-#Lose {
+.largeinfo {
     font-size: 32px;
 }
 
